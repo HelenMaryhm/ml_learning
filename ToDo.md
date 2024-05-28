@@ -24,3 +24,20 @@ Microservice
 https://www.udemy.com/course/master-microservices-with-spring-docker-kubernetes/learn/lecture/39943870#reviews
 
 
+# 24-Apr-2024
+
+Upwork - 
+(i) E-Commerce
+(ii) Admission college (or) enrollment
+(iii) Ticket booking
+(iv) blogs
+(v) news
+(vi) Calculators
+(vii) Wikis / static - no much focus
+(viii) Quiz
+
+(ix) Educational 
+(x) Governemnt
+(xi) Corporate
+
+(xii) Marketing page

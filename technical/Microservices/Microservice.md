@@ -1,6 +1,284 @@
 # Microservice architecture
 
 
+
+# TRY - CONFIG SERVER NOT HEALTHY
+
+
+config_v2: digest: sha256:41e4b4e2a41cd19f7545bf4eded4bae2a06a4d0dd2ff9e2d413d51a6d89c4b3e size: 1788
+(base) hmaryt@R06VTWRMW5 config % curl --fail --silent localhost:8071/actuator/health/readiness | grep UP         
+(base) hmaryt@R06VTWRMW5 config % curl --fail --silent localhost:8071/actuator/health/readiness          
+(base) hmaryt@R06VTWRMW5 config % curl localhost:8071/actuator/health/readiness
+curl: (7) Failed to connect to localhost port 8071 after 0 ms: Couldn't connect to server
+(base) hmaryt@R06VTWRMW5 config % curl -k -X GET http://localhost:8071/health 
+curl: (7) Failed to connect to localhost port 8071 after 0 ms: Couldn't connect to server
+(base) hmaryt@R06VTWRMW5 config % curl -k -X GET http://localhost:8071/health
+curl: (52) Empty reply from server
+(base) hmaryt@R06VTWRMW5 config % curl -k -X GET http://localhost:8071/health
+curl: (52) Empty reply from server
+(base) hmaryt@R06VTWRMW5 config % curl -k -X GET http://localhost:8071/health
+curl: (52) Empty reply from server
+(base) hmaryt@R06VTWRMW5 config % curl -k -X GET http://localhost:8071/health
+curl: (52) Empty reply from server
+(base) hmaryt@R06VTWRMW5 config % curl -k -X GET http://localhost:8071/health
+curl: (52) Empty reply from server
+(base) hmaryt@R06VTWRMW5 config % curl -k -X GET http://localhost:8071/health
+curl: (52) Empty reply from server
+(base) hmaryt@R06VTWRMW5 config % curl -k -X GET http://localhost:8071/health
+curl: (52) Empty reply from server
+(base) hmaryt@R06VTWRMW5 config % curl -k -X GET http://localhost:8071/health
+^[[A{"timestamp":"2024-05-12T03:48:13.797+00:00","status":404,"error":"Not Found","path":"/health"}%              (base) hmaryt@R06VTWRMW5 config % curl -k -X GET http://localhost:8071/health
+{"timestamp":"2024-05-12T03:48:17.029+00:00","status":404,"error":"Not Found","path":"/health"}%                  (base) hmaryt@R06VTWRMW5 config % curl -k -X GET http://localhost:8071/actuator/health
+{"status":"DOWN","components":{"binders":{"status":"DOWN","components":{"rabbit":{"status":"DOWN","details":{"error":"org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused"}}}},"clientConfigServer":{"status":"UNKNOWN","details":{"error":"no property sources located"}},"configServer":{"status":"UP","details":{"repositories":[{"name":"app","profiles":["default"],"label":null}]}},"discoveryComposite":{"description":"Discovery Client not initialized","status":"UNKNOWN","components":{"discoveryClient":{"description":"Discovery Client not initialized","status":"UNKNOWN"}}},"diskSpace":{"status":"UP","details":{"total":105088212992,"free":76442419200,"threshold":10485760,"path":"/.","exists":true}},"livenessState":{"status":"UP"},"ping":{"status":"UP"},"rabbit":{"status":"DOWN","details":{"error":"org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused"}},"reactiveDiscoveryClients":{"description":"Discovery Client not initialized","status":"UNKNOWN","components":{"Simple Reactive Discovery Client":{"description":"Discovery Client not initialized","status":"UNKNOWN"}}},"readinessState":{"status":"UP"},"refreshScope":{"status"(base) hmaryt@R06VTWRMW5 config %
+
+# ---------------------------
+
+503 Service Unavailable
+
+{
+    "status": "DOWN",
+    "components": {
+        "binders": {
+            "status": "DOWN",
+            "components": {
+                "rabbit": {
+                    "status": "DOWN",
+                    "details": {
+                        "error": "org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused"
+                    }
+                }
+            }
+        },
+        "clientConfigServer": {
+            "status": "UNKNOWN",
+            "details": {
+                "error": "no property sources located"
+            }
+        },
+        "configServer": {
+            "status": "UP",
+            "details": {
+                "repositories": [
+                    {
+                        "name": "app",
+                        "profiles": [
+                            "default"
+                        ],
+                        "label": null
+                    }
+                ]
+            }
+        },
+        "discoveryComposite": {
+            "description": "Discovery Client not initialized",
+            "status": "UNKNOWN",
+            "components": {
+                "discoveryClient": {
+                    "description": "Discovery Client not initialized",
+                    "status": "UNKNOWN"
+                }
+            }
+        },
+        "diskSpace": {
+            "status": "UP",
+            "details": {
+                "total": 105088212992,
+                "free": 76442357760,
+                "threshold": 10485760,
+                "path": "/.",
+                "exists": true
+            }
+        },
+        "livenessState": {
+            "status": "UP"
+        },
+        "ping": {
+            "status": "UP"
+        },
+        "rabbit": {
+            "status": "DOWN",
+            "details": {
+                "error": "org.springframework.amqp.AmqpConnectException: java.net.ConnectException: Connection refused"
+            }
+        },
+        "reactiveDiscoveryClients": {
+            "description": "Discovery Client not initialized",
+            "status": "UNKNOWN",
+            "components": {
+                "Simple Reactive Discovery Client": {
+                    "description": "Discovery Client not initialized",
+                    "status": "UNKNOWN"
+                }
+            }
+        },
+        "readinessState": {
+            "status": "UP"
+        },
+        "refreshScope": {
+            "status": "UP"
+        }
+    },
+    "groups": [
+        "liveness",
+        "readiness"
+    ]
+}
+
+# ---------------------------
+
+To be removed:
+"credsStore": "osxkeychain",
+  "currentContext": "rancher-desktop"
+
+
+
+# STORING CONFIG IN GETHUB REPO:
+
+https://github.com/HelenMaryhm/st-ignatius-church-virudhunagar-config.git
+
+
+
+
+
+# PROFILES
+
+Run -> Modify -> Run configurations
+
+CLI
+Program arguments -> --spring.profiles.active=prod
+
+1. CLI
+2. JVM
+3. Environment Variables
+
+Has disadvantages.
+Github action, jenkins - can do.
+
+# SOLUTION
+Store and maintain in different repo.
+Auditing configuration.
+spring cloud config server.
+
+# SPRING CLOUD CONFIG
+- acts as a centralized config server.
+- join as clients
+
+- choose a location to store.
+
+******************************************************************************
+# CLOUD NATIVE APPLICATIONS
+
+- s/w developed mainly for cloud.
+- CNCF Cloud Naive Computing Foundation
+- resilient (failure management); fault tolerant
+- scale application using kuberentes
+- devops practices
+- loadbalancing
+
+CI (OR) CD (OR) CD
+continuous integration (OR) continuous deployment (OR) continuous delivery
+
+
+******************************************************************************
+
+# DOCKER EXTENSIONS
+
+Logs Explorer
+
+******************************************************************************
+
+# Common docker commands
+
+docker images
+docker image inspect <image-id>
+docker image rm <image-id>
+docker image prune
+docker image push <container-registry/username:tag>
+docker image pull <container-registry/username:tag>
+docker rmi <image-id>
+
+docker build . -t <image-name>
+docker run -p <host-port>:<container-port> <image-name>
+docker ps
+docker ps -a
+
+docker system prune
+docker login -u <username>
+docker logout
+docker history <image-name>
+docker exec -it <container-id> sh
+
+docker compose up
+docker compose down
+
+docker container start <container-id>
+docker container pause <container-id>
+docker container unpause <container-id>
+docker container stop <container-id>
+docker container kill <container-id>
+docker container restart <container-id>
+docker container inspect <container-id>
+docker container logs <container-id>
+docker container logs -F <container-id>
+docker container rm <container-id>
+docker container prune
+docker container stats
+
+******************************************************************************
+
+
+
+
+# DOCKER COMPOSE
+
+- tool for defining and running multiple ms (run commands)
+- single yaml file
+- http://docs.docker.com/compose/
+- docker compose version
+
+Docker Compose version v2.24.7
+
+Step1: Create a config file in any one microservice
+Step2: docker-compose.yml
+Step3: need a 'tab' space
+
+services:
+    <service-name>:
+        image: "xxx"
+        container_name: "stignatius-ms"
+        ports:
+            - "8080:8080"
+        deploy:
+            resources:
+                limits:
+                    memory: 700m
+
+YAML -> '-' hyphen to give multiple elements.
+m    -> MB
+
+# Tag all images in same n/w so that all microservices can communicate with each other
+
+- give networks
+
+# How to give 'docker compose up' command.
+Run from the MS where this file is present.
+
+In detached mode.
+
+docker compose up -d
+
+# To remove containers
+
+docker compose down
+
+docker compose start
+docker compose stop
+
+
+
+
+***********************************************
+
 ## CHALLENGE 3
 
 DEPLOYMENT, PORTABILITY & SCALABILITY
@@ -58,6 +336,90 @@ easybytes/accounts:v1
 helenmaryhm77dockerhub/stignatius:v1
 
 docker build . -t <tagname>
+
+docker build . -t helenmaryhm77/stignatius:v1
+
+
+# RUN CONTAINER
+Do port mapping - expose the container outside of the docker network.
+Docker container starts as 8080
+
+-p PORT
+
+docker run -p 8080:8080 <imagename>
+
+# RUN CONTAINER IN DETACHED MODE
+
+-d DEETACHED
+
+containerId is displayed.
+
+# LIST RUNNING CONTAINERS
+
+docker ps
+
+docker ps -a
+
+docker start <containername>
+
+
+# Any number of containers can be created, but different port number should be given
+
+2nd port number - is docker.
+
+docker run -d -p 8081:8080 <imagename>
+
+docker run -d -p 8081:8080 helenmaryhm77dockerhub/stignatius:v1
+
+c52f71173e8cd4d99441720c873b2b7ccdcac8bf56e7d86db54b81a77c5bc430
+
+
+# PRIVATE 
+
+helenmaryhm77
+docker run -d -p 8081:8080 helenmaryhm77/stignatius:v1
+
+
+# DOCKER PUSH WITH CREDENTIALS
+
+Step1: Docker login
+Step2: Docker push
+
+$ docker login --username=xxx --email=xxxx@xx.com
+
+$ docker push xxx/yyy
+
+
+# DOCKER CREDENTIALS SAVED IN
+
+C:\Users\<username>\.docker\config.json
+
+
+# LOCAL CONFIG VALUE AFTER LOGIN
+{
+ "auths": {
+  "https://index.docker.io/v1/": {}
+ },
+ "credsStore": "osxkeychain",
+ "currentContext": "rancher-desktop"
+}
+
+OTHERS:
+{
+"credsStore": "osxkeychain",
+ "currentContext": "rancher-desktop"
+}
+
+
+# CREATING DOCKER IMAGE -> METHOD2
+
+- Build packs -> packeto (slow and consumes some space but less than Dockerfile). Scans our files.
+
+
+# CREATING DOCKER IMAGE -> METHOD3
+
+- Google jib (only for java, but fast and less space). Scans our files.
+
 
 ***********************************************
 
